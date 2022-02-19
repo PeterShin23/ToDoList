@@ -1,14 +1,12 @@
 :root {
-    --dark: #374151;
-    --darker:#1F2937;
-    --darkest: #111827;
-    --grey: #6B7280;
-    --light: #EEE;
-    --pink: #EC4899;
-    --purple: #8b5cf6;
-}
+    --blue: #05386b;
+    --shadow-green: #1e5f52;
+    --dark-green: #379683;
+    --green: #5cdb95;
+    --light-green: #8ee4af;
+    --off-white: #edf5e1;
+} 
 
-/*  */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -22,9 +20,9 @@ body {
     flex-direction: column;
     /* vh: viewport height; so 100 means take up the whole page */
     min-height: 100vh;
-    background: var(--dark);
+    background: var(--dark-green);
     /* make items in body white (because background is dark) */
-    color: white;
+    color: var(--off-white);
 }
 
 header {
@@ -37,131 +35,127 @@ header {
 
 header h1 {
     font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--grey);
+    font-weight: bolder;
+    color: var(--light-green);
     margin-bottom: 1rem;
 }
 
-/* #: select element with id of _ */
-#new-task-form {
+header, form {
+    min-height: 10vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* set everything as none so that we can customize these ourselves */
-input, button {
-    appearance: none;
+form input, form button {
+    padding: 0.5rem;
+    font-size: 2rem;
     border: none;
-    outline: none;
-    background: none;
+    background: var(--off-white);
+    transition: 0.2s;
 }
 
-#new-task-input {
-    flex: 1 1 0%;
-    background-color: var(--darker);
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-right: 1rem;
-    color: var(--light);
-    font-size: 1.25rem;
-}
-
-#new-task-holder {
-    color: var(--grey);
-}
-
-#new-task-submit {
-    color: var(--pink);
-    font-size: 1.25rem;
-    font-weight: 700;
-    /* will make a rectangular button with gradient */
-    background-image: linear-gradient(to right, var(--pink), var(--purple));
-    /* now make the text have the gradient */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+form button {
+    color: var(--dark-green);
     cursor: pointer;
-    transition: 0.4s;
-
+    transition: 0.2s ease;
 }
 
-#new-task-submit:hover {
-    opacity: 0.8;
+form button:hover {
+    color: var(--off-white);
+    background: var(--dark-green);
+    box-shadow: 5px 5px 0px 0px var(--shadow-green);
 }
 
-#new-task-submit:active {
-    opacity: 0.5;
+form button:active {
+    opacity: 0.2;
 }
 
-main {
-    flex: 1 1 0%;
-    /* padding: 2rem 1rem; */
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
+.task-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* '.' refers to section class and its contents */
 .task-list {
-    padding: 1rem;
+    min-width: 30%;
+    max-width: 70%;
+    list-style: none;
 }
 
-/* this refers to the h2 in the task-list class */
-.task-list h2 {
+.task {
+    margin: 0.5rem;
+    background: var(--off-white);
+    color: black;
     font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--gray);
-    margin-bottom: 1rem;
-}
-
-#tasks .task {
     display: flex;
     justify-content: space-between;
-    background-color: var(--darkest);
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
+    align-items: center;
+    transition: 0.2s;
 }
 
-#tasks .task .content .text {
-    color: var(--light);
-    font-size: 1.125rem;
-    width: 100%;
-    display: block;
-    transition: 0.4s;
+.task li {
+    /* push buttons to right end */
+    flex: 1;
+    transition: 0.3s;
 }
 
-/* for text that is not read-only */
-#tasks .task .content .text:not(:read-only) {
-    color: var(--pink);
+.check-button, .remove-button {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: none;
+    background: var(--off-white);
+    transition: 0.2s;
 }
 
-#tasks .task .actions {
-    display: flex;
-    margin: 0 -0.5rem;
-}
-
-.task .actions button {
+.check-button {
+    color: var(--dark-green);
     cursor: pointer;
-    margin: 0 0.5rem;
-    font-size: 1.125rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: 0.4s;
+    transition: 0.2s ease;
 }
 
-.task .actions button:hover {
-    opacity: 0.8;
+.check-button:hover {
+    color: var(--off-white);
+    background: var(--dark-green);
+    box-shadow: 5px 5px 0px 0px var(--shadow-green);
 }
 
-.task .actions button:active {
+.check-button:active {
+    opacity: 0.2;
+}
+
+.remove-button {
+    color: var(--blue);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.remove-button:hover {
+    color: var(--off-white);
+    background: rgb(240, 84, 115);
+    box-shadow: 5px 5px 0px 0px var(--shadow-green);
+}
+
+.remove-button:active {
+    opacity: 0.2;
+    
+}
+
+.task-item {
+    padding: 0rem 0.5rem;
+}
+
+.fa-check, .fa-xmark {
+    /* make it unaffected by events */
+    pointer-events: none;
+}
+
+.checked {
+    text-decoration: line-through;
     opacity: 0.5;
 }
 
-.task .actions .edit {
-    background-image: linear-gradient(to right, var(--pink), var(--purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.task .actions .delete {
-    color: crimson;
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
 }
