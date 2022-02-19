@@ -2,14 +2,32 @@
 const taskInput = document.querySelector('.task-input');
 const taskButton = document.querySelector('.task-button');
 const taskList = document.querySelector('.task-list');
+const headerButton = document.querySelector('.head-button');
 
 //Event Listeners
 document.addEventListener('DOMContentLoaded', getTasks); // once DOM loaded, run
+headerButton.addEventListener('click', changeHeader);
 taskButton.addEventListener('click', addTask);
 taskList.addEventListener('click', removePress);
 taskList.addEventListener('click', checkPress);
 
 //Functions
+
+// click to look at the date
+function changeHeader(e) {
+    const txt = e.target;
+    if (txt.innerText === "To Do List") {
+        var d = new Date();
+        var date = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        txt.innerText = month + "/" + date + "/" + year;
+    } else {
+        txt.innerText = "To Do List";
+    }
+}
+
+// add a task to the list
 function addTask(e) {
     // prevents from refreshing upon button press
     e.preventDefault();
