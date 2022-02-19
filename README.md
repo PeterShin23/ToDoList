@@ -1,4 +1,4 @@
-# ToDoList
+# To-Do List
 
 A to-do list made using HTML, CSS, and Javascript. Uses local storage to keep data.
 
