@@ -21,7 +21,6 @@ body {
     /* vh: viewport height; so 100 means take up the whole page */
     min-height: 100vh;
     background: var(--dark-green);
-    /* make items in body white (because background is dark) */
     color: var(--off-white);
 }
 
@@ -90,7 +89,6 @@ form button:active {
 
 .task-list {
     min-width: 30%;
-    max-width: 70%;
     list-style: none;
 }
 
