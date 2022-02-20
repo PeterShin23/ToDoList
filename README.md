@@ -4,6 +4,9 @@ A to-do list made using HTML, CSS, and Javascript. Uses local storage to keep da
 
 Special (not-so-special) Feature: click on Title to change to Date seamlessly!
 
+To demo:
+go to: https://petershin23.github.io/ToDoList/
+
 To use:
 1. clone/fork repo
 2. go to library where repo is kept
