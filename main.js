@@ -97,7 +97,7 @@ function getTasks() {
         // if there is already storage
         tasks = JSON.parse(localStorage.getItem('tasks'));
     }
-
+    
     //add tasks from storage
     tasks.forEach(function(task) {
         // create div: each div is new task with its own buttons
