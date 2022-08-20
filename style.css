@@ -43,12 +43,10 @@ header button {
     font-weight: bolder;
     color: var(--light-green);
     margin-bottom: 1rem;
-    color: var(--light-green);
     background: var(--dark-green);
     padding: 0;
     border: none;
 }
-
 
 header, form {
     min-height: 10vh;
@@ -79,6 +77,14 @@ form button:hover {
 
 form button:active {
     opacity: 0.2;
+}
+
+.head-button {
+    transition: 0.3s ease;
+}
+
+.head-button:hover {
+    color: var(--shadow-green);
 }
 
 .task-container {

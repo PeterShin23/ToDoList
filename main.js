@@ -4,14 +4,18 @@ const taskButton = document.querySelector('.task-button');
 const taskList = document.querySelector('.task-list');
 const headerButton = document.querySelector('.head-button');
 
-//Event Listeners
+// Event Listeners
 document.addEventListener('DOMContentLoaded', getTasks); // once DOM loaded, run
 headerButton.addEventListener('click', changeHeader);
 taskButton.addEventListener('click', addTask);
 taskList.addEventListener('click', removePress);
 taskList.addEventListener('click', checkPress);
 
-//Functions
+// Functions
+
+// Record of tasks and checked tasks
+const tasksRecord = [];
+const checkedTasksRecord = [];
 
 // click to look at the date
 function changeHeader(e) {
@@ -39,8 +43,17 @@ function addTask(e) {
     if (taskInput.value == "") {
         alert("Add a task!")
         return
-    } else {
+    }
+    // check if already existing task
+    if (tasksRecord.includes(taskInput.value)) {
+        taskInput.value = "";
+        alert("You already know about this task!")
+        return
+    } 
+    
+    else {
         newTask.innerText = taskInput.value;
+        tasksRecord.push(taskInput.value);
     }
     newTask.classList.add('task-item');
     taskDiv.appendChild(newTask); // add task to taskDiv
@@ -75,6 +88,9 @@ function removePress(e) {
             removeFromStorage(task);
             task.remove();
         })
+
+        const taskIndex = task.children[0].innerText;
+        tasksRecord.splice(tasksRecord.indexOf(taskIndex), 1);
     }
 }
 
@@ -84,6 +100,20 @@ function checkPress(e) {
     if (item.classList[0] === 'check-button') {
         const task = item.parentElement;
         task.classList.toggle("checked");
+        const taskText = task.children[0].innerText;
+        saveAsChecked(taskText);
+        // save as checked to local storage
+        localStorage.setItem("tasks-checked", JSON.stringify(checkedTasksRecord));
+
+    }
+}
+
+function saveAsChecked(task) {
+    if (! checkedTasksRecord.includes(task)) {
+        checkedTasksRecord.push(task);
+    } else {
+        checkedTasksRecord.splice(checkedTasksRecord.indexOf(task), 1);
+        localStorage.setItem("tasks-checked", JSON.stringify(checkedTasksRecord));
     }
 }
 
@@ -97,6 +127,9 @@ function getTasks() {
         // if there is already storage
         tasks = JSON.parse(localStorage.getItem('tasks'));
     }
+    
+    // also load in checked-tasks
+    let tasksChecked = JSON.parse(localStorage.getItem('tasks-checked')) || [];
     
     //add tasks from storage
     tasks.forEach(function(task) {
@@ -119,7 +152,15 @@ function getTasks() {
         removeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>'
         removeButton.classList.add("remove-button");
         taskDiv.appendChild(removeButton); // add to taskDiv
+
+        // checked if it was checked task
+        if (tasksChecked.includes(task)) {
+            taskDiv.classList.toggle("checked");
+            saveAsChecked(task);
+        }
+
         // add task to tasklist
+        tasksRecord.push(task);
         taskList.appendChild(taskDiv);
     })
 }
@@ -152,5 +193,7 @@ function removeFromStorage(task) {
 
     const taskIndex = task.children[0].innerText;
     tasks.splice(tasks.indexOf(taskIndex), 1); // second param: how many to remove
+    tasksRecord.splice(tasksRecord.indexOf(taskIndex), 1);
+    checkedTasksRecord.splice(checkedTasksRecord.indexOf(taskIndex), 1);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
